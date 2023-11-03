@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ProjectController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,10 +22,6 @@ use App\Models\Project;
 // });
 
 
-Route::get("/projects", function () {
+// Route::get("/projects", [ProjectController::class,"index"]);
 
-    $projects = Project::paginate(10);  
-
-    return response()->json($projects);
-
-});
+Route::apiResource("projects", ProjectController::class)->only(["index","show"]);
