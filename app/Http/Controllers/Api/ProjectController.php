@@ -15,7 +15,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::select('id','type_id','title','date','commit')->with('type:id,label,color','technologies:id,label,color')->paginate(10);  
+        $projects = Project::select('id','type_id','title','date','commit')->with('type:id,label,color','technologies:id,label,color')->paginate(12);  
 
         return response()->json($projects);
     }
@@ -39,7 +39,12 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        //
+        $project = Project::select('id','type_id','title','date','commit')
+        ->where('id', $id)
+        ->with('type:id,label,color','technologies:id,label,color')
+        ->first();
+
+        return response()->json($project);
     }
 
     /**
